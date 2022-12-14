@@ -1,6 +1,7 @@
 const progress = document.getElementById("progress");
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
+const reset = document.getElementById("reset");
 const circles = document.querySelectorAll(".circle");
 const actives = document.querySelectorAll(".active");
 
@@ -26,9 +27,15 @@ prev.addEventListener("click", () => {
   update();
 });
 
+reset.addEventListener("click", () => {
+  currentActive = 1;
+
+  update();
+});
+
 function update() {
-  circles.forEach((circle, idx) => {
-    if (idx < currentActive) {
+  circles.forEach((circle, index) => {
+    if (index < currentActive) {
       circle.classList.add("active");
     } else {
       circle.classList.remove("active");
@@ -42,10 +49,13 @@ function update() {
 
   if (currentActive === 1) {
     prev.disabled = true;
+    next.disabled = false;
+    reset.disabled = true;
   } else if (currentActive === circles.length) {
     next.disabled = true;
   } else {
     prev.disabled = false;
     next.disabled = false;
+    reset.disabled = false;
   }
 }
