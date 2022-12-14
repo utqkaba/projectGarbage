@@ -1,35 +1,34 @@
 const progress = document.getElementById("progress");
-const previous = document.getElementById("prev");
+const prev = document.getElementById("prev");
 const next = document.getElementById("next");
-const allCircle = document.querySelectorAll(".circle");
+const circles = document.querySelectorAll(".circle");
 const actives = document.querySelector(".active");
 
-//kaç adet circleın active sınıfı aldığını sayan flag.
-let flagActive = 1;
+let currentActive = 1;
 
 next.addEventListener("click", () => {
-  flagActive++;
+  currentActive++;
 
-  if (flagActive > allCircle.length) {
-    flagActive = allCircle.length;
+  if (currentActive > circles.length) {
+    currentActive = circles.length;
   }
 
   update();
 });
 
-previous.addEventListener("click", () => {
-  flagActive--;
+prev.addEventListener("click", () => {
+  currentActive--;
 
-  if (flagActive < 1) {
-    flagActive = 1;
+  if (currentActive < 1) {
+    currentActive = 1;
   }
 
   update();
 });
 
 function update() {
-  allCircle.forEach((circle, idx) => {
-    if (idx < flagActive) {
+  circles.forEach((circle, index) => {
+    if (index < currentActive) {
       circle.classList.add("active");
     } else {
       circle.classList.remove("active");
@@ -37,14 +36,14 @@ function update() {
   });
 
   progress.style.width =
-    ((actives.length - 1) / (allCircle.length - 1)) * 100 + "%";
+    ((actives.length - 1) / (circles.length - 1)) * 100 + "%";
 
-  if (flagActive === 1) {
-    previous.disabled = true;
-  } else if (flagActive === allCircle.length) {
+  if (currentActive === 1) {
+    prev.disabled = true;
+  } else if (currentActive === circles.length) {
     next.disabled = true;
   } else {
-    previous.disabled = false;
+    prev.disabled = false;
     next.disabled = false;
   }
 }
